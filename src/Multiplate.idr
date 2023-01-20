@@ -75,7 +75,7 @@ orElse : Alternative m => Multiplate p => Lazy (p m) -> Lazy (p m) -> p m
 orElse p1 p2 = mkPlate $ \proj, x => proj p1 x <|> proj p2 x
 
 ||| Apply a transformation to the whole family of a node.
-||| This happens in a depth-first order
+||| This happens in a pre-order, ie children are mapped before parents.
 public export covering
 mapFamily : Multiplate p => Monad m => p m -> p m
 mapFamily p = multiplate (mapFamily p) `andThenM` p
